@@ -44,7 +44,13 @@ actor AnalyticsClient {
         _ event: Event,
         apiKey: String
     ) async throws {
-        let appId = Bundle.main.bundleIdentifier ?? "unknown.bundle.id"
+        guard let appId = Bundle.main.bundleIdentifier else {
+#if DEBUG
+            assertionFailure("Missing Bundle Identifier. Ensure your target has a valid bundle identifier.")
+#endif
+            throw AnalyticsError.missingBundleIdentifier
+        }
+
         let deviceId = await Self.makeDeviceId()
         let platform = "ios"
         let payload = Request(
@@ -89,12 +95,15 @@ actor AnalyticsClient {
 }
 
 private enum AnalyticsError: Error, CustomStringConvertible {
+    case missingBundleIdentifier
     case clientError(status: Int, data: Data)
     case serverError(status: Int, data: Data)
     case unexpectedStatus(status: Int, data: Data)
 
     var description: String {
         switch self {
+        case .missingBundleIdentifier:
+            return "Missing Bundle Identifier. Ensure your target has a valid bundle identifier."
         case .clientError(let status, let data):
             return "Client error \(status): \(String(data: data, encoding: .utf8) ?? "<no body>")"
         case .serverError(let status, let data):
