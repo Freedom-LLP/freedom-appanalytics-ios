@@ -16,7 +16,12 @@ enum JSONValue: Encodable {
     case array([JSONValue])
     case null
 
-    init(_ value: Any) {
+    init(_ value: Any?) {
+        guard let value else {
+            self = .null
+            return
+        }
+
         switch value {
         case let value as String:
             self = .string(value)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias EventProperties = [String : Any]
+public typealias EventProperties = [String : Any?]
 
 struct Event: Encodable {
     let name: String
