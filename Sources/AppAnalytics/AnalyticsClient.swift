@@ -21,7 +21,9 @@ actor AnalyticsClient {
         properties: EventProperties
     ) async {
         guard let apiKey else {
-            assertionFailure("AppAnalytics is not configured. Call AppAnalytics.configure(apiKey:) first.")
+#if DEBUG
+            print("AppAnalytics is not configured. Call AppAnalytics.configure(apiKey:) first.")
+#endif
             return
         }
 
@@ -46,7 +48,7 @@ actor AnalyticsClient {
     ) async throws {
         guard let appId = Bundle.main.bundleIdentifier else {
 #if DEBUG
-            assertionFailure("Missing Bundle Identifier. Ensure your target has a valid bundle identifier.")
+            print("Missing Bundle Identifier. Ensure your target has a valid bundle identifier.")
 #endif
             throw AnalyticsError.missingBundleIdentifier
         }
