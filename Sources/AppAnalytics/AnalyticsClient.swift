@@ -64,7 +64,7 @@ actor AnalyticsClient {
         encoder.keyEncodingStrategy = .useDefaultKeys
         let body = try encoder.encode(payload)
 
-        guard let url = URL(string: baseURL + "/events") else {
+        guard let url = URL(string: baseURL + "events") else {
             throw URLError(.badURL)
         }
         var request = URLRequest(url: url)
