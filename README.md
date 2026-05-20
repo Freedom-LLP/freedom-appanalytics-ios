@@ -6,7 +6,7 @@
 2. Go to `File` → `Add Package Dependencies...`
 3. Enter the package repository URL:
 ```text
-https://github.com/nslllava/AppAnalytics.git
+https://github.com/Freedom-LLP/freedom-appanalytics-ios.git
 ```
 4. Select the version you want to use.
 5. Add the package to your app target.
