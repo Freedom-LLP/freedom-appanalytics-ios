@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum JSONValue: Encodable {
+enum JSONValue: Encodable, Sendable {
     case string(String)
     case int(Int)
     case double(Double)
@@ -46,7 +46,7 @@ enum JSONValue: Encodable {
         }
     }
 
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: any Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
         case .string(let value):
